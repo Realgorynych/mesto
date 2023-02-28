@@ -1,0 +1,7 @@
+.popup__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
+    padding: 30px;
+}

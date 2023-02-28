@@ -1,0 +1,21 @@
+.cross-button {
+    width: 32px;
+    height: 32px;
+    margin-left: 435px;
+    position: absolute;
+    top: -40px;
+    transition: 1s ease;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 670px) {
+    .cross-button {
+        margin-left: 262px;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.cross-button:hover{
+    opacity: 0.6;
+}

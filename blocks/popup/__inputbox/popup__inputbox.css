@@ -1,0 +1,14 @@
+.popup__inputbox {
+    display: flex;
+    flex-direction: column;
+    margin-top: 52px;
+    gap: 35px;
+
+}
+
+@media screen and (max-width: 670px) {
+    .popup__inputbox{
+        margin-top: 50px;
+        margin-top: 86px;
+    }
+}

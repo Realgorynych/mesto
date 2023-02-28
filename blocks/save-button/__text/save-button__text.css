@@ -1,0 +1,17 @@
+.save-button__text {
+    font-family: 'Inter', 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
+    padding-top: 17px;
+}
+
+@media screen and (max-width: 670px) {
+    .save-button__text {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}
