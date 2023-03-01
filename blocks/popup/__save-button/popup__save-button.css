@@ -7,10 +7,8 @@
     transition: 1s ease;
     cursor: pointer;
     padding: 0;
-    border: none;
     font: inherit;
     color: inherit;
-    background-color: transparent;
 }
 
 @media screen and (max-width: 670px) {
