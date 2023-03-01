@@ -1,4 +1,5 @@
 .profile__box{
     display: flex;
     margin-top: 20px;
+    margin-left: 1px;
 }

@@ -1,5 +1,5 @@
 .profile__stat {
-    font-family: 'Inter', 'Arial';
+    font-family: 'Inter', 'Arial', 'sans-serif';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -7,6 +7,9 @@
     color: #FFFFFF;
     max-width: 336px;
     margin-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 670px) {
@@ -14,5 +17,6 @@
         font-size: 14px;
         line-height: 17px;
         text-align: center;
+        margin-top: 7px;
     }
 }

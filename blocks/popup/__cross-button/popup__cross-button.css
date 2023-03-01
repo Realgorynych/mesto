@@ -1,4 +1,4 @@
-.cross-button {
+.popup__cross-button {
     width: 32px;
     height: 32px;
     margin-left: 435px;
@@ -9,13 +9,14 @@
 }
 
 @media screen and (max-width: 670px) {
-    .cross-button {
+    .popup__cross-button {
         margin-left: 262px;
         width: 20px;
         height: 20px;
+        top: -35px;
     }
 }
 
-.cross-button:hover{
+.popup__cross-button:hover{
     opacity: 0.6;
 }

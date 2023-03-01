@@ -1,0 +1,24 @@
+.profile__edit-button {
+    width: 24px;
+    height: 24px;
+    margin-top: 16px;
+    transition: 1s ease;
+    cursor: pointer;
+    background-image: url(./../../../img/karandash.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    border: 1px solid rgba(255, 255, 255, 1);
+}
+
+@media screen and (max-width: 670px) {
+    .profile__edit-button {
+        min-width: 18px;
+        height: 18px;
+        margin-right: 20px;
+        background-size: 7.5px 7.5px;
+    }
+}
+.profile__edit-button:hover{
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
