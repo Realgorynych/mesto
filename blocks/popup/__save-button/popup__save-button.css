@@ -15,15 +15,15 @@
     text-align: center;
     color: #FFFFFF;
     margin: auto;
-    margin-top: 13px;
-    margin-bottom: 37px;
+    margin-top: 19px;
+    margin-bottom: 39px;
 }
 
 @media screen and (max-width: 670px) {
     .popup__save-button {
         width: 238px;
         height: 46px;
-        margin: 10px 0 25px 20px;
+        margin: 17px auto 25px auto;
         font-size: 14px;
         line-height: 17px;
     }
