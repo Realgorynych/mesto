@@ -2,7 +2,7 @@
     margin: 30px 7px 0 auto;
     transition: 1s ease;
     cursor: pointer;
-    background-image: url(./../../../img/like-button.svg);
+    background-image: url(./../../../images/like-button.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 22px 19px;
@@ -17,8 +17,4 @@
 
 .card__like-button:hover{
     opacity: 0.5;
-}
-
-.card__like-button:active{
-    background-image: url(./../../img/like-active.svg);
 }

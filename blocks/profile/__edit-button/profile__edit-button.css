@@ -4,7 +4,7 @@
     margin-top: 16px;
     transition: 1s ease;
     cursor: pointer;
-    background-image: url(./../../../img/karandash.svg);
+    background-image: url(./../../../images/karandash.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 10px 10px;
@@ -23,5 +23,5 @@
     }
 }
 .profile__edit-button:hover{
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    opacity: 0.6;
 }
