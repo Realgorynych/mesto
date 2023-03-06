@@ -1,51 +1,49 @@
-let formElement = document.querySelector('.popup__inputbox');
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = document.querySelector('.popup__input_type_job');
-let nameProfile = document.querySelector('.profile__name');
-let nameJob = document.querySelector('.profile__stat');
-let editButton = document.querySelector('.profile__edit-button');
-let cross = document.querySelector('.popup__cross-button');
-let popup = document.querySelector('.popup');
+const profileForm = document.querySelector('.popup__inputbox');
+const addForm = document.querySelector('.popup-add__inputbox');
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_job');
+const nameProfile = document.querySelector('.profile__name');
+const nameJob = document.querySelector('.profile__stat');
+const editButton = document.querySelector('.profile__edit-button');
+const profileCross = document.querySelector('.popup-profile__cross-button');
+const popup = document.querySelector('.popup');
+const popupProfile = document.querySelector('.popup-profile');
+const popupPhoto = document.querySelector('.popup-photo');
+const cardsList = document.querySelector('.cards');
+const cardTemplate = document.querySelector('#card-template').content;
+const popupPhotoSrc = document.querySelector('.popup-photo__img');
+const popupPhotoTitle = document.querySelector('.popup-photo__title');
+let mestoName = document.querySelector('#mesto-name');
+let mestoSrc = document.querySelector('#mesto-src');
+const popupAdd = document.querySelector('.popup-add');
+const addButton = document.querySelector('.profile__add-button');
+const addCross = document.querySelector('.popup-add__cross-button');
 
-
-
-function edit() {
-    popup.classList.add('popup_opened');
-    nameInput.value = nameProfile.textContent;
-    jobInput.value = nameJob.textContent;
+function openPopup(a) {
+    a.classList.add('popup_opened')
+    console.log('open')
 }
 
-function close() {
-    popup.classList.remove('popup_opened');
+function closePopup(a) {
+    a.classList.remove('popup_opened');
+    console.log('close')
 }
+
+addCross.addEventListener('click', function () { closePopup(popupAdd) });
+addButton.addEventListener('click', function () { openPopup(popupAdd) });
+editButton.addEventListener('click', function () { openPopup(popupProfile) });
+profileCross.addEventListener('click', function () { closePopup(popupProfile) });
+profileForm.addEventListener('submit', handleFormSubmit);
 
 function handleFormSubmit(evt) {
     evt.preventDefault();
     nameProfile.textContent = nameInput.value;
     nameJob.textContent = jobInput.value;
-    close();
+    closePopup(popupProfile)
 }
 
-cross.addEventListener('click', close);
-editButton.addEventListener('click', edit);
-formElement.addEventListener('submit', handleFormSubmit);
-
-
-let popupAdd = document.querySelector('.popup-add');
-let addButton = document.querySelector('.profile__add-button');
-let addCross = document.querySelector('.popup-add__cross-button');
-
-addCross.addEventListener('click', closeAdd);
-addButton.addEventListener('click', openAdd);
-
-function openAdd() {
-    popupAdd.classList.add('popup-add_opened');
-}
-
-function closeAdd() {
-    popupAdd.classList.remove('popup-add_opened');
-}
-
+nameInput.value = nameProfile.textContent;
+jobInput.value = nameJob.textContent;
 
 
 
@@ -74,69 +72,53 @@ const initialCards = [
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-    
+
 ];
-
-
-let popupPhoto = document.querySelector('.popup-photo');
-
-let cardsList = document.querySelector('.cards');
-let cardTemplate = document.querySelector('#card-template').content;
-let popupPhotoSrc = document.querySelector('.popup-photo__img');
-let popupPhotoTitle = document.querySelector('.popup-photo__title');
-
-initialCards.forEach(function (element) {
+//Я не понял как можно сделать функцию создания карточек по другому, пока все что получилось это добавить данные из формы в массив 
+function createCard(item) {
     let cardsElement = cardTemplate.cloneNode(true);
-    cardsElement.querySelector('.card__title').textContent = element.name;
-    cardsElement.querySelector('.card__photo').src = element.link;
+    let cardTitle = cardsElement.querySelector('.card__title');
+    let cardPhoto = cardsElement.querySelector('.card__photo');
+    cardsElement.querySelector('.card__title').textContent = item.name;
+    cardPhoto.src = item.link;
+    cardPhoto.alt = item.link;
     cardsElement.querySelector('.card__like-button').addEventListener('click', function (e) {
         e.target.classList.toggle('card__like-button_active');
     })
     cardsElement.querySelector('.card__trash-button').addEventListener('click', function (e) {
         e.target.closest('.card').remove();
     })
-    cardsElement.querySelector('.card__photo').addEventListener('click', function(){
-        popupPhoto.classList.toggle('popup-photo_opened');
-        popupPhotoSrc.src = element.link;
-        popupPhotoTitle.textContent = element.name;
-        let photoCross = document.querySelector('.popup-photo__cross-button').addEventListener('click', function(){
-            popupPhoto.classList.remove('popup-photo_opened');
-        })
+    cardPhoto.addEventListener('click', function () {
+        openPopup(popupPhoto);
+        popupPhotoSrc.src = cardPhoto.src;
+        popupPhotoTitle.textContent = cardTitle.textContent;
     })
-    
+    mestoName.value = "";
+    mestoSrc.value = "";
+
+    return cardsElement
+}
+
+
+
+initialCards.forEach(function (element) {
+    const cardsElement = createCard(element)
     cardsList.append(cardsElement);
 });
 
 
 
-let mestoName = document.querySelector('#mesto-name');
-let mestoSrc = document.querySelector('#mesto-src');
-
-let addMesto = document.querySelector("#saveAdd").addEventListener('click', function (evt) {
+addForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    let cardsElementAdd = cardTemplate.cloneNode(true);
-    let cardSrc = cardsElementAdd.querySelector('.card__photo');
-    let cardTitle = cardsElementAdd.querySelector('.card__title')
-    cardsElementAdd.querySelector('.card__title').textContent = mestoName.value;
-    cardsElementAdd.querySelector('.card__photo').src = mestoSrc.value;
-    cardsElementAdd.querySelector('.card__like-button').addEventListener('click', function (e) {
-        e.target.classList.toggle('card__like-button_active');
-    })
-    cardsElementAdd.querySelector('.card__trash-button').addEventListener('click', function (e) {
-        e.target.closest('.card').remove();
-    })
-    cardsElementAdd.querySelector('.card__photo').addEventListener('click', function(){
-        popupPhoto.classList.toggle('popup-photo_opened');
-        popupPhotoSrc.src = cardSrc.src;
-        popupPhotoTitle.textContent = cardTitle.textContent;
-    })
-
-    let photoCross = document.querySelector('.popup-photo__cross-button').addEventListener('click', function(){
-        popupPhoto.classList.remove('popup-photo_opened');
-    })
-    mestoName.value="";
-    mestoSrc.value="";
-    cardsList.prepend(cardsElementAdd); 
-    closeAdd()
+    createCard(initialCards.unshift({
+        name: mestoName.value,
+        link: mestoSrc.value
+    }));
+    closePopup(popupAdd);
+    console.log(initialCards);
 });
 
+
+let photoCross = document.querySelector('.popup-photo__cross-button').addEventListener('click', function () {
+    closePopup(popupPhoto);
+})

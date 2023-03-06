@@ -45,9 +45,9 @@
             <p class="footer__title">&copy;2020 Mesto Russia</p>
         </footer>
     </div>
-    <div class="popup">
+    <div class="popup popup-profile">
         <div class="popup__container">
-            <button type="button" class="popup__cross-button"></button>
+            <button type="button" class="popup__cross-button popup-profile__cross-button"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
             <form name="input" class="popup__inputbox">
                 <input name="name" type="text" placeholder="Имя" class="popup__input popup__input_type_name">
@@ -60,7 +60,7 @@
         <div class="popup__container">
             <button type="button" class="popup__cross-button popup-add__cross-button"></button>
             <h3 class="popup__title popup-add__title">Новое место</h3>
-            <form name="input" class="popup__inputbox">
+            <form name="input" class="popup__inputbox popup-add__inputbox">
                 <input name="name" type="text" placeholder="Название" id="mesto-name"
                     class="popup__input popup__input_type_name">
                 <input name="job" type="text" placeholder="Ссылка на картинку" id="mesto-src"
@@ -69,9 +69,9 @@
             </form>
         </div>
     </div>
-    <div class="popup-photo">
+    <div class="popup popup-photo">
         <div class="popup-photo__container">
-            <button type="button" class="popup-photo__cross-button"></button>
+            <button type="button" class="popup-photo__cross-button popup__cross-button"></button>
             <img class="popup-photo__img" src="-">
             <p class="popup-photo__title"></p>
         </div>
@@ -79,4 +79,4 @@
     <script src="./scripts/index.js"></script>
 </body>
 
-</html>ф
+</html>
