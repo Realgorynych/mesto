@@ -1,9 +1,27 @@
 .popup-photo__cross-button {
+    width: 32px;
+    height: 32px;
     left: 100%;
+    position: absolute;
+    top: -40px;
+    transition: 1s ease;
+    cursor: pointer;
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    background-image: url(./../../../images/close-button.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain
 }
 
 @media screen and (max-width: 670px) {
     .popup-photo__cross-button {
         left: 95%;
+        width: 20px;
+        height: 20px;
+        top: -35px;
     }
-}
+} 
