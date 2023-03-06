@@ -1,0 +1,9 @@
+.popup-photo__cross-button {
+    left: 100%;
+}
+
+@media screen and (max-width: 670px) {
+    .popup-photo__cross-button {
+        left: 95%;
+    }
+}

@@ -29,53 +29,16 @@
                 <button type="button" class="profile__add-button"></button>
             </section>
             <section class="cards">
-                <div class="card">
-                    <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__photo">
-                    <div class="card__box">
-                        <h2 class="card__title">Карачаевск</h2>
-                        <button type="button" class="card__like-button"></button>
+                <template id="card-template">
+                    <div class="card">
+                        <button type="button" class="card__trash-button"></button>
+                        <img src="" alt="Карачаевск" class="card__photo">
+                        <div class="card__box">
+                            <h2 class="card__title"></h2>
+                            <button type="button" class="card__like-button"></button>
+                        </div>
                     </div>
-                </div>
-
-                <article class="card">
-                    <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="card__photo">
-                    <div class="card__box">
-                        <h2 class="card__title">Гора Эльбрус</h2>
-                        <button type="button" class="card__like-button"></button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img src="./images/dombai.jpg" alt="Домбай" class="card__photo">
-                    <div class="card__box">
-                        <h2 class="card__title">Домбай</h2>
-                        <button type="button" class="card__like-button"></button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="card__photo">
-                    <div class="card__box">
-                        <h2 class="card__title">Гора Эльбрус</h2>
-                        <button type="button" class="card__like-button"></button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img src="./images/dombai.jpg" alt="Домбай" class="card__photo">
-                    <div class="card__box">
-                        <h2 class="card__title">Домбай</h2>
-                        <button type="button" class="card__like-button"></button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__photo">
-                    <div class="card__box">
-                        <h2 class="card__title">Карачаевск</h2>
-                        <button type="button" class="card__like-button"></button>
-                    </div>
-                </article>
+                </template>
             </section>
         </main>
         <footer class="footer">
@@ -92,8 +55,26 @@
                 </form>
             </div>
         </div>
-    </div>
-    <script src="./scripts/index.js"></script>
+        <div class="popup-add">
+            <div class="popup__container">
+                <button type="button" class="popup__cross-button popup-add__cross-button"></button>
+                <h3 class="popup__title popup-add__title">Новое место</h3>
+                <form name="input" class="popup__inputbox">
+                    <input name="name" type="text" placeholder="Название" id="mesto-name" class="popup__input popup__input_type_name">
+                    <input name="job" type="text" placeholder="Ссылка на картинку" id="mesto-src"
+                        class="popup__input popup__input_type_job">
+                    <button type="submit" id="saveAdd" class="popup__save-button">Сохранить</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup-photo">
+            <div class="popup-photo__container">
+                <button type="button" class="popup__cross-button popup-photo__cross-button"></button>
+            <img class="popup-photo__img" src="">
+            <p class="popup-photo__title"></p>
+        </div>
+        </div>
+        <script src="./scripts/index.js"></script>
 </body>
 
 </html>
