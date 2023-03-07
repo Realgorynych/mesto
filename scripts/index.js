@@ -6,44 +6,44 @@ const nameProfile = document.querySelector('.profile__name');
 const nameJob = document.querySelector('.profile__stat');
 const editButton = document.querySelector('.profile__edit-button');
 const profileCross = document.querySelector('.popup-profile__cross-button');
-const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup-profile');
 const popupPhoto = document.querySelector('.popup-photo');
 const cardsList = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card-template').content;
 const popupPhotoSrc = document.querySelector('.popup-photo__img');
 const popupPhotoTitle = document.querySelector('.popup-photo__title');
-let mestoName = document.querySelector('#mesto-name');
-let mestoSrc = document.querySelector('#mesto-src');
+const mestoName = document.querySelector('#mesto-name');
+const mestoSrc = document.querySelector('#mesto-src');
 const popupAdd = document.querySelector('.popup-add');
 const addButton = document.querySelector('.profile__add-button');
 const addCross = document.querySelector('.popup-add__cross-button');
 
-function openPopup(a) {
-    a.classList.add('popup_opened')
+function openPopup(popup) {
+    popup.classList.add('popup_opened')
     console.log('open')
 }
 
-function closePopup(a) {
-    a.classList.remove('popup_opened');
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
     console.log('close')
 }
+
+nameInput.value = nameProfile.textContent;
+jobInput.value = nameJob.textContent;
 
 addCross.addEventListener('click', function () { closePopup(popupAdd) });
 addButton.addEventListener('click', function () { openPopup(popupAdd) });
 editButton.addEventListener('click', function () { openPopup(popupProfile) });
 profileCross.addEventListener('click', function () { closePopup(popupProfile) });
-profileForm.addEventListener('submit', handleFormSubmit);
+profileForm.addEventListener('submit', profileFormSubmit);
 
-function handleFormSubmit(evt) {
+function profileFormSubmit(evt) {
     evt.preventDefault();
     nameProfile.textContent = nameInput.value;
     nameJob.textContent = jobInput.value;
     closePopup(popupProfile)
 }
 
-nameInput.value = nameProfile.textContent;
-jobInput.value = nameJob.textContent;
 
 
 
@@ -74,11 +74,11 @@ const initialCards = [
     }
 
 ];
-//Я не понял как можно сделать функцию создания карточек по другому, пока все что получилось это добавить данные из формы в массив 
+
 function createCard(item) {
-    let cardsElement = cardTemplate.cloneNode(true);
-    let cardTitle = cardsElement.querySelector('.card__title');
-    let cardPhoto = cardsElement.querySelector('.card__photo');
+    const cardsElement = cardTemplate.cloneNode(true);
+    const cardTitle = cardsElement.querySelector('.card__title');
+    const cardPhoto = cardsElement.querySelector('.card__photo');
     cardsElement.querySelector('.card__title').textContent = item.name;
     cardPhoto.src = item.link;
     cardPhoto.alt = item.link;
@@ -91,11 +91,10 @@ function createCard(item) {
     cardPhoto.addEventListener('click', function () {
         openPopup(popupPhoto);
         popupPhotoSrc.src = cardPhoto.src;
+        popupPhotoSrc.alt = cardTitle.textContent;
         popupPhotoTitle.textContent = cardTitle.textContent;
     })
-    mestoName.value = "";
-    mestoSrc.value = "";
-
+    
     return cardsElement
 }
 
@@ -110,15 +109,17 @@ initialCards.forEach(function (element) {
 
 addForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    createCard(initialCards.unshift({
+    const newCard = createCard({
         name: mestoName.value,
         link: mestoSrc.value
-    }));
+    });
+    cardsList.prepend(newCard);
     closePopup(popupAdd);
-    console.log(initialCards);
+    evt.target.reset()
+    evt.target.reset()
 });
 
 
-let photoCross = document.querySelector('.popup-photo__cross-button').addEventListener('click', function () {
+document.querySelector('.popup-photo__cross-button').addEventListener('click', function () {
     closePopup(popupPhoto);
 })
