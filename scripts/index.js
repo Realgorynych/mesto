@@ -35,9 +35,9 @@ addCross.addEventListener('click', function () { closePopup(popupAdd) });
 addButton.addEventListener('click', function () { openPopup(popupAdd) });
 editButton.addEventListener('click', function () { openPopup(popupProfile) });
 profileCross.addEventListener('click', function () { closePopup(popupProfile) });
-profileForm.addEventListener('submit', profileFormSubmit);
+profileForm.addEventListener('submit', submitProfileForm);
 
-function profileFormSubmit(evt) {
+function submitProfileForm(evt) {
     evt.preventDefault();
     nameProfile.textContent = nameInput.value;
     nameJob.textContent = jobInput.value;
@@ -115,7 +115,6 @@ addForm.addEventListener('submit', function (evt) {
     });
     cardsList.prepend(newCard);
     closePopup(popupAdd);
-    evt.target.reset()
     evt.target.reset()
 });
 
