@@ -36,6 +36,7 @@ addButton.addEventListener('click', function () { openPopup(popupAdd) });
 editButton.addEventListener('click', function () { openPopup(popupProfile) });
 profileCross.addEventListener('click', function () { closePopup(popupProfile) });
 profileForm.addEventListener('submit', submitProfileForm);
+const photoCross = document.querySelector('.popup-photo__cross-button').addEventListener('click', function () { closePopup(popupPhoto) })
 
 function submitProfileForm(evt) {
     evt.preventDefault();
@@ -93,8 +94,9 @@ function createCard(item) {
         popupPhotoSrc.src = cardPhoto.src;
         popupPhotoSrc.alt = cardTitle.textContent;
         popupPhotoTitle.textContent = cardTitle.textContent;
+
     })
-    
+
     return cardsElement
 }
 
@@ -118,7 +120,21 @@ addForm.addEventListener('submit', function (evt) {
     evt.target.reset()
 });
 
+function escapeClose(evt, popupName) {
+    const key = evt.key;
+    if (key === "Escape") {
+        closePopup(popupName);
+    }
+}
 
-document.querySelector('.popup-photo__cross-button').addEventListener('click', function () {
-    closePopup(popupPhoto);
-})
+document.addEventListener('keydown', function (evt) { escapeClose(evt, popupAdd) });
+document.addEventListener('keydown', function (evt) { escapeClose(evt, popupProfile) });
+document.addEventListener('keydown', function (evt) { escapeClose(evt, popupPhoto) });
+
+const popupBg = document.querySelector('.popup::before')
+
+document.addEventListener('click', (evt) => {
+    if (evt.target === popupBg) {
+        closePopup(popupProfile)
+    }
+});
