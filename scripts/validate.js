@@ -3,17 +3,13 @@ const enableValidationKeys = {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save-button',
     inactiveButtonClass: 'popup__save-button_inactive',
-    inputErrorClass: 'popup__input-error',
-    errorClass: 'popup__input-error_active2'
+    inputErrorClass: 'popup__input-error_active',
+    errorClass: 'popup__input-error'
 };
 
 const enableValidation = ({ formSelector, ...rest }) => {
     const formList = Array.from(document.querySelectorAll(formSelector));
     formList.forEach((formElement) => {
-        // formElement.addEventListener('submit', (evt) => {
-        //     evt.preventDefault();
-        // })
-
         setEventListeners(formElement, rest);
     })
 }
@@ -40,16 +36,6 @@ const toggleButtonState = (inputList, buttonElement, { inactiveButtonClass }) =>
         buttonElement.removeAttribute('disabled')
     }
 };
-
-// const enableButton = (button, { inactiveButtonClass }) => {
-//     button.classList.remove(inactiveButtonClass);
-//     button.removeAttribute('disabled')
-// }
-
-// const disableButton = (button, { inactiveButtonClass }) => {
-//     button.classList.add(inactiveButtonClass);
-//     button.setAttribute('disabled', 'disabled')
-// }
 
 const checkInputValidity = (formElement, inputElement, rest) => {
     if (!inputElement.validity.valid) {

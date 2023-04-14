@@ -143,7 +143,3 @@ function bgClose(e, popupName) {
         closePopup(popupName)
     }
 }
-
-// document.addEventListener('click', function (e) { bgClose(e, popupAdd) });
-// document.addEventListener('click', function (e) { bgClose(e, popupProfile) });
-// document.addEventListener('click', function (e) { bgClose(e, popupPhoto) });
