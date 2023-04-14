@@ -17,23 +17,37 @@ const mestoSrc = document.querySelector('#mesto-src');
 const popupAdd = document.querySelector('.popup-add');
 const addButton = document.querySelector('.profile__add-button');
 const addCross = document.querySelector('.popup-add__cross-button');
+const addSaveButton = document.querySelector('#saveAdd');
+const allPopup = document.querySelectorAll('.popup');
+
+function offButton() {
+    addSaveButton.setAttribute('disabled', 'disabled');
+    addSaveButton.classList.add('popup__save-button_inactive');
+}
 
 function openPopup(popup) {
     popup.classList.add('popup_opened')
-    console.log('open')
+    document.addEventListener('keydown', function (evt) { escapeClose(evt, popup) });
+    document.addEventListener('click', function (evt) { bgClose(evt, popup) });
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    console.log('close')
+    document.removeEventListener('keydown', function (evt) { escapeClose(evt, popup) });
+    document.removeEventListener('click', function (evt) { bgClose(evt, popup) });
 }
 
-nameInput.value = nameProfile.textContent;
-jobInput.value = nameJob.textContent;
-
 addCross.addEventListener('click', function () { closePopup(popupAdd) });
-addButton.addEventListener('click', function () { openPopup(popupAdd) });
-editButton.addEventListener('click', function () { openPopup(popupProfile) });
+addButton.addEventListener('click', function () {
+    openPopup(popupAdd);
+    offButton();
+});
+editButton.addEventListener('click', function () {
+    nameInput.value = nameProfile.textContent;
+    jobInput.value = nameJob.textContent;
+    openPopup(popupProfile);
+
+});
 profileCross.addEventListener('click', function () { closePopup(popupProfile) });
 profileForm.addEventListener('submit', submitProfileForm);
 const photoCross = document.querySelector('.popup-photo__cross-button').addEventListener('click', function () { closePopup(popupPhoto) })
@@ -44,9 +58,6 @@ function submitProfileForm(evt) {
     nameJob.textContent = jobInput.value;
     closePopup(popupProfile)
 }
-
-
-
 
 const initialCards = [
     {
@@ -127,14 +138,12 @@ function escapeClose(evt, popupName) {
     }
 }
 
-document.addEventListener('keydown', function (evt) { escapeClose(evt, popupAdd) });
-document.addEventListener('keydown', function (evt) { escapeClose(evt, popupProfile) });
-document.addEventListener('keydown', function (evt) { escapeClose(evt, popupPhoto) });
-
-const popupBg = document.querySelector('.popup::before')
-
-document.addEventListener('click', (evt) => {
-    if (evt.target === popupBg) {
-        closePopup(popupProfile)
+function bgClose(e, popupName) {
+    if (e.target === popupName) {
+        closePopup(popupName)
     }
-});
+}
+
+// document.addEventListener('click', function (e) { bgClose(e, popupAdd) });
+// document.addEventListener('click', function (e) { bgClose(e, popupProfile) });
+// document.addEventListener('click', function (e) { bgClose(e, popupPhoto) });
