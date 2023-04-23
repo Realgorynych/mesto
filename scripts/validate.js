@@ -52,17 +52,15 @@ const hasInvalidInput = (inputList) => {
     })
 };
 
-const showInputError = (formElement, inputElement, errorMessage, { inputErrorClass, errorClass, ...rest }) => {
+const showInputError = (formElement, inputElement, errorMessage, { inputErrorClass, ...rest }) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(errorClass);
 };
 
-const hideInputError = (formElement, inputElement, { inputErrorClass, errorClass, ...rest }) => {
+const hideInputError = (formElement, inputElement, { inputErrorClass, ...rest }) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(inputErrorClass);
-    errorElement.classList.remove(errorClass);
     errorElement.textContent = '';
 };
 

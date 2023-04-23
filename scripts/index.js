@@ -28,13 +28,13 @@ function offButton() {
 function openPopup(popup) {
     popup.classList.add('popup_opened')
     document.addEventListener('keydown', function (evt) { escapeClose(evt, popup) });
-    document.addEventListener('click', function (evt) { bgClose(evt, popup) });
+    popup.addEventListener('click', function (evt) { bgClose(evt, popup) });
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', function (evt) { escapeClose(evt, popup) });
-    document.removeEventListener('click', function (evt) { bgClose(evt, popup) });
+    document.removeEventListener('keydown', escapeClose);
+    popup.removeEventListener('click', bgClose);
 }
 
 addCross.addEventListener('click', function () { closePopup(popupAdd) });
@@ -46,7 +46,6 @@ editButton.addEventListener('click', function () {
     nameInput.value = nameProfile.textContent;
     jobInput.value = nameJob.textContent;
     openPopup(popupProfile);
-
 });
 profileCross.addEventListener('click', function () { closePopup(popupProfile) });
 profileForm.addEventListener('submit', submitProfileForm);
@@ -111,14 +110,10 @@ function createCard(item) {
     return cardsElement
 }
 
-
-
 initialCards.forEach(function (element) {
     const cardsElement = createCard(element)
     cardsList.append(cardsElement);
 });
-
-
 
 addForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
@@ -138,8 +133,8 @@ function escapeClose(evt, popupName) {
     }
 }
 
-function bgClose(e, popupName) {
-    if (e.target === popupName) {
+function bgClose(evt, popupName) {
+    if (evt.target === popupName) {
         closePopup(popupName)
     }
 }
