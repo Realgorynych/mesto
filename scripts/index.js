@@ -27,14 +27,13 @@ function offButton() {
 
 function openPopup(popup) {
     popup.classList.add('popup_opened')
-    document.addEventListener('keydown', function (evt) { escapeClose(evt, popup) });
+    document.addEventListener('keydown', addEscapeClose(evt))//не понимаю как заставить это работать с удалением слушателя, если назвать функцию для его последующего удаленияб он не видит evt
     popup.addEventListener('click', function (evt) { bgClose(evt, popup) });
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', escapeClose);
-    popup.removeEventListener('click', bgClose);
+    document.removeEventListener('keydown', addEscapeClose(evt))
 }
 
 addCross.addEventListener('click', function () { closePopup(popupAdd) });
@@ -126,11 +125,15 @@ addForm.addEventListener('submit', function (evt) {
     evt.target.reset()
 });
 
-function escapeClose(evt, popupName) {
-    const key = evt.key;
-    if (key === "Escape") {
-        closePopup(popupName);
+function escapeClose(popup, evt) {
+    if (evt.key === "Escape") {
+        closePopup(popup);
+        console.log(evt.key)
     }
+}
+
+function addEscapeClose(evt) {
+    escapeClose(popup, evt)
 }
 
 function bgClose(evt, popupName) {
