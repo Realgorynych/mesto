@@ -27,13 +27,12 @@ function offButton() {
 
 function openPopup(popup) {
     popup.classList.add('popup_opened')
-    document.addEventListener('keydown', addEscapeClose(evt))//не понимаю как заставить это работать с удалением слушателя, если назвать функцию для его последующего удаленияб он не видит evt
-    popup.addEventListener('click', function (evt) { bgClose(evt, popup) });
+    document.addEventListener('keydown', addEscapeClose)
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', addEscapeClose(evt))
+    document.removeEventListener('keydown', addEscapeClose)
 }
 
 addCross.addEventListener('click', function () { closePopup(popupAdd) });
@@ -125,15 +124,15 @@ addForm.addEventListener('submit', function (evt) {
     evt.target.reset()
 });
 
-function escapeClose(popup, evt) {
+function escapeClose(evt) {
     if (evt.key === "Escape") {
-        closePopup(popup);
-        console.log(evt.key)
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup);
     }
 }
 
 function addEscapeClose(evt) {
-    escapeClose(popup, evt)
+    escapeClose(evt)
 }
 
 function bgClose(evt, popupName) {
@@ -141,3 +140,7 @@ function bgClose(evt, popupName) {
         closePopup(popupName)
     }
 }
+
+popupAdd.addEventListener('click', function (evt) { bgClose(evt, popupAdd) })
+popupPhoto.addEventListener('click', function (evt) { bgClose(evt, popupPhoto) })
+popupProfile.addEventListener('click', function (evt) { bgClose(evt, popupProfile) })
