@@ -1,3 +1,6 @@
+import { Card } from './Card.js'
+import { FormValidator } from './FormValidator.js'
+
 const profileForm = document.querySelector('.popup__inputbox');
 const addForm = document.querySelector('.popup-add__inputbox');
 const nameInput = document.querySelector('.popup__input_type_name');
@@ -27,12 +30,12 @@ function offButton() {
 
 export function openPopup(popup) {
     popup.classList.add('popup_opened')
-    document.addEventListener('keydown', addEscapeClose)
+    document.addEventListener('keydown', handleCloseByEsc)
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', addEscapeClose)
+    document.removeEventListener('keydown', handleCloseByEsc)
 }
 
 addCross.addEventListener('click', function () { closePopup(popupAdd) });
@@ -47,7 +50,8 @@ editButton.addEventListener('click', function () {
 });
 profileCross.addEventListener('click', function () { closePopup(popupProfile) });
 profileForm.addEventListener('submit', submitProfileForm);
-const photoCross = document.querySelector('.popup-photo__cross-button').addEventListener('click', function () { closePopup(popupPhoto) })
+const photoCross = document.querySelector('.popup-photo__cross-button')
+photoCross.addEventListener('click', function () { closePopup(popupPhoto) })
 
 function submitProfileForm(evt) {
     evt.preventDefault();
@@ -84,34 +88,27 @@ const initialCards = [
 
 ];
 
-function escapeClose(evt) {
+function handleCloseByEsc(evt) {
     if (evt.key === "Escape") {
         const openedPopup = document.querySelector('.popup_opened');
         closePopup(openedPopup);
     }
 }
 
-function addEscapeClose(evt) {
-    escapeClose(evt)
-}
-
-function bgClose(evt, popupName) {
+function handleCloseByOverlay(evt, popupName) {
     if (evt.target === popupName) {
         closePopup(popupName)
     }
 }
 
-popupAdd.addEventListener('click', function (evt) { bgClose(evt, popupAdd) })
-popupPhoto.addEventListener('click', function (evt) { bgClose(evt, popupPhoto) })
-popupProfile.addEventListener('click', function (evt) { bgClose(evt, popupProfile) })
+popupAdd.addEventListener('click', function (evt) { handleCloseByOverlay(evt, popupAdd) })
+popupPhoto.addEventListener('click', function (evt) { handleCloseByOverlay(evt, popupPhoto) })
+popupProfile.addEventListener('click', function (evt) { handleCloseByOverlay(evt, popupProfile) })
 
-import { Card } from './card.js'
-import { FormValidator } from './validate.js'
 
 initialCards.forEach((item) => {
     const card = new Card(item, "#card-template");
-    const cardElement = card.generateCard();
-    cardsList.prepend(cardElement);
+    createCard(card)
 });
 
 addForm.addEventListener('submit', function (evt) {
@@ -120,12 +117,15 @@ addForm.addEventListener('submit', function (evt) {
         name: mestoName.value,
         link: mestoSrc.value
     }, "#card-template");
-    const cardElement = newCard.generateCard();
-    cardsList.prepend(cardElement);
+    createCard(newCard)
     closePopup(popupAdd);
     evt.target.reset()
 });
 
+function createCard(card){
+    const newCard = card.generateCard();
+    cardsList.prepend(newCard)
+}
 
 const enableValidationKeys = {
     formSelector: '.popup__inputbox',
