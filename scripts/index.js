@@ -1,5 +1,6 @@
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'
+import { initialCards } from './initialCards.js';
 
 const profileForm = document.querySelector('.popup__inputbox');
 const addForm = document.querySelector('.popup-add__inputbox');
@@ -11,7 +12,7 @@ const editButton = document.querySelector('.profile__edit-button');
 const profileCross = document.querySelector('.popup-profile__cross-button');
 const popupProfile = document.querySelector('.popup-profile');
 export const popupPhoto = document.querySelector('.popup-photo');
-const cardsList = document.querySelector('.cards');
+const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card-template').content;
 export const popupPhotoSrc = document.querySelector('.popup-photo__img');
 export const popupPhotoTitle = document.querySelector('.popup-photo__title');
@@ -60,34 +61,6 @@ function submitProfileForm(evt) {
     closePopup(popupProfile)
 }
 
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-
-];
-
 function handleCloseByEsc(evt) {
     if (evt.key === "Escape") {
         const openedPopup = document.querySelector('.popup_opened');
@@ -107,27 +80,30 @@ popupProfile.addEventListener('click', function (evt) { handleCloseByOverlay(evt
 
 
 initialCards.forEach((item) => {
-    const card = new Card(item, "#card-template");
-    createCard(card)
+    createCard(item);
 });
 
 addForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    const newCard = new Card({
+    createCard({
         name: mestoName.value,
         link: mestoSrc.value
-    }, "#card-template");
-    createCard(newCard)
+    })
     closePopup(popupAdd);
     evt.target.reset()
 });
 
-function createCard(card){
+function renderCard(card) {
     const newCard = card.generateCard();
-    cardsList.prepend(newCard)
+    cardsContainer.prepend(newCard)
 }
 
-const enableValidationKeys = {
+function createCard(element) {
+    const card = new Card(element, "#card-template");
+    return renderCard(card)
+}
+
+const validationConfig = {
     formSelector: '.popup__inputbox',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save-button',
@@ -136,8 +112,8 @@ const enableValidationKeys = {
     errorClass: 'popup__input-error'
 };
 
-const formElements = document.querySelectorAll(enableValidationKeys.formSelector);
+const formElements = document.querySelectorAll(validationConfig.formSelector);
 formElements.forEach(formElement => {
-    const formValidator = new FormValidator(enableValidationKeys, formElement);
+    const formValidator = new FormValidator(validationConfig, formElement);
     formValidator.enableValidation();
 });
