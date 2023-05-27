@@ -1,5 +1,5 @@
 import { popupPhotoSrc, popupPhotoTitle, popupPhoto, openPopup } from './index.js'
-
+// Я переименовал папку на Card гит все равно ее отоюрожает с маленькой буквы
 class Card {
     constructor(data, cardSelector) {
         this._name = data.name;
