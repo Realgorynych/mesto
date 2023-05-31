@@ -23,11 +23,15 @@ const addButton = document.querySelector('.profile__add-button');
 const addCross = document.querySelector('.popup-add__cross-button');
 const addSaveButton = document.querySelector('#saveAdd');
 const allPopup = document.querySelectorAll('.popup');
-
-function offButton() {
-    addSaveButton.setAttribute('disabled', 'disabled');
-    addSaveButton.classList.add('popup__save-button_inactive');
-}
+const photoCross = document.querySelector('.popup-photo__cross-button')
+const validationConfig = {
+    formSelector: '.popup__inputbox',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_inactive',
+    inputErrorClass: 'popup__input-error_active',
+    errorClass: 'popup__input-error'
+};
 
 export function openPopup(popup) {
     popup.classList.add('popup_opened')
@@ -39,10 +43,21 @@ function closePopup(popup) {
     document.removeEventListener('keydown', handleCloseByEsc)
 }
 
+const formElements = document.querySelectorAll(validationConfig.formSelector);
+formElements.forEach(formElement => {
+    const formValidator = new FormValidator(validationConfig, formElement);
+    formValidator.enableValidation();
+});
+
+const formElement = document.querySelector('.popup__inputbox');
+const formValidator = new FormValidator(validationConfig, formElement);
+
+formValidator.enableValidation();
+
 addCross.addEventListener('click', function () { closePopup(popupAdd) });
 addButton.addEventListener('click', function () {
     openPopup(popupAdd);
-    offButton();
+    formValidator.offButton();
 });
 editButton.addEventListener('click', function () {
     nameInput.value = nameProfile.textContent;
@@ -51,7 +66,6 @@ editButton.addEventListener('click', function () {
 });
 profileCross.addEventListener('click', function () { closePopup(popupProfile) });
 profileForm.addEventListener('submit', submitProfileForm);
-const photoCross = document.querySelector('.popup-photo__cross-button')
 photoCross.addEventListener('click', function () { closePopup(popupPhoto) })
 
 function submitProfileForm(evt) {
@@ -80,12 +94,12 @@ popupProfile.addEventListener('click', function (evt) { handleCloseByOverlay(evt
 
 
 initialCards.forEach((item) => {
-    createCard(item);
+    renderCard(item);
 });
 
 addForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    createCard({
+    renderCard({
         name: mestoName.value,
         link: mestoSrc.value
     })
@@ -94,26 +108,14 @@ addForm.addEventListener('submit', function (evt) {
 });
 
 function renderCard(card) {
-    const newCard = card.generateCard();
+    const newCard = createCard(card)
     cardsContainer.prepend(newCard)
 }
 
 function createCard(element) {
     const card = new Card(element, "#card-template");
-    return renderCard(card)
+    return card.generateCard()
 }
 
-const validationConfig = {
-    formSelector: '.popup__inputbox',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save-button',
-    inactiveButtonClass: 'popup__save-button_inactive',
-    inputErrorClass: 'popup__input-error_active',
-    errorClass: 'popup__input-error'
-};
 
-const formElements = document.querySelectorAll(validationConfig.formSelector);
-formElements.forEach(formElement => {
-    const formValidator = new FormValidator(validationConfig, formElement);
-    formValidator.enableValidation();
-});
+
