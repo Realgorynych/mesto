@@ -1,4 +1,4 @@
-import { popupPhotoSrc, popupPhotoTitle, popupPhoto, openPopup } from './index.js'
+import PopupWithImage from './PopupWithImage.js';
 class Card {
     constructor(data, cardSelector) {
         this._name = data.name;
@@ -42,10 +42,9 @@ class Card {
     }
 
     _openPopup() {
-        popupPhotoSrc.src = this._link;
-        popupPhotoSrc.alt = this._name;
-        popupPhotoTitle.textContent = this._name;
-        openPopup(popupPhoto);
+        this._popupWithImage = new PopupWithImage('.popup-photo', this._link);
+        this._popupWithImage.open()
+        this._popupWithImage.setEventListeners()
     }
 
     generateCard() {
