@@ -1,23 +1,20 @@
-import { Card } from './Card.js'
-import { FormValidator } from './FormValidator.js'
-import { initialCards } from './initialCards.js';
-import Section from './Section.js';
-import PopupWidthForm from './PopupWidthForm.js';
-import UserInfo from './UserInfo.js';
+import { Card } from '../scripts/Card.js'
+import { FormValidator } from '../scripts/FormValidator.js'
+import { initialCards } from '../utils/initialCards.js';
+import Section from '../scripts/Section.js';
+import PopupWidthForm from '../scripts/PopupWidthForm.js';
+import PopupWithImage from '../scripts/PopupWithImage.js'
+import UserInfo from '../scripts/UserInfo.js'
+import './index.css';
 
 const profileForm = document.querySelector('.popup-profile__inputbox');
 const addForm = document.querySelector('.popup-add__inputbox');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
-const nameProfile = document.querySelector('.profile__name');
-const nameJob = document.querySelector('.profile__stat');
 const editButton = document.querySelector('.profile__edit-button');
 export const popupPhoto = document.querySelector('.popup-photo');
-const cardsContainer = document.querySelector('.cards');
 export const popupPhotoSrc = document.querySelector('.popup-photo__img');
 export const popupPhotoTitle = document.querySelector('.popup-photo__title');
-const mestoName = document.querySelector('#mesto-name');
-const mestoSrc = document.querySelector('#mesto-src');
 const addButton = document.querySelector('.profile__add-button');
 const validationConfig = {
     formSelector: '.popup__inputbox',
@@ -28,58 +25,63 @@ const validationConfig = {
     errorClass: 'popup__input-error'
 };
 
-//для формы профиля
+const userInfo = new UserInfo({ nameElementSelector: '.profile__name', infoElementSelector: '.profile__stat' })
+
 const profileValidation = new FormValidator(validationConfig, profileForm)
 profileValidation.enableValidation()
 
-//для формы добавления карточек
 const cardValidation = new FormValidator(validationConfig, addForm)
 cardValidation.enableValidation()
 
 addButton.addEventListener('click', function () {
+    cardValidation.resetValidation();
     popupAddForm.open()
 });
 editButton.addEventListener('click', function () {
-    nameInput.value = nameProfile.textContent;
-    jobInput.value = nameJob.textContent;
+    const { name, info } = userInfo.getUserInfo();
+    nameInput.value = name;
+    jobInput.value = info;
     popupProfileForm.open();
 });
 
-const createCards = new Section(
+const cardsList = new Section(
     {
         items: initialCards,
         renderer: (element) => {
-            const card = new Card(element, "#card-template");
+            const card = new Card(element, "#card-template", {
+                handleOpenPopup: (name, link) => {
+                    popupWithImage.open(name, link)
+                }
+            });
             return card.generateCard();
         }
-    }, cardsContainer
+    }, '.cards'
 )
 
-createCards.render()
 
+cardsList.renderItems()
 
 const popupAddForm = new PopupWidthForm('.popup-add', {
     submitCallback:
-        function (evt) {
-            evt.preventDefault();
-            createCards.addItem({
-                name: mestoName.value,
-                link: mestoSrc.value
-            })
-
+        function (inputValues) {
+            cardsList.renderItem(inputValues);
+            popupAddForm.close();
         }
+
 })
 
 popupAddForm.setEventListeners()
 
 const popupProfileForm = new PopupWidthForm('.popup-profile', {
     submitCallback:
-        function (evt) {
-            evt.preventDefault();
-            const userInfo = new UserInfo({ nameElement: nameProfile, infoElement: nameJob })
-            userInfo.setUserInfo({ name: nameInput.value, link: jobInput.value });
-
+        function (inputValues) {
+            userInfo.setUserInfo(inputValues);
+            popupProfileForm.close();
         }
 })
 
 popupProfileForm.setEventListeners()
+
+
+const popupWithImage = new PopupWithImage('.popup-photo');
+popupWithImage.setEventListeners()

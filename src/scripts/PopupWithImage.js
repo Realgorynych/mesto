@@ -1,16 +1,15 @@
 import Popup from "./Popup.js";
-export default class PopupWithImage extends Popup{
-    constructor(popupSelector, photo){
+export default class PopupWithImage extends Popup {
+    constructor(popupSelector) {
         super(popupSelector);
-        this._src = document.querySelector('.popup-photo__img');
-        this._imageSrc = photo;
+        this._img = this._popupSelector.querySelector('.popup-photo__img');
+        this._title = this._popupSelector.querySelector('.popup-photo__title');
+        this._inputSrc = document.querySelector('#mesto-src')
+        this._inputText = document.querySelector('#mesto-name')
     }
-    open(){
-        this._src.src = this._imageSrc
+    open(name, link) {
+        this._img.src = link
+        this._title.textContent = name
         super.open()
     }
 }
-
-// Создайте класс PopupWithImage
-// Создайте класс PopupWithImage, который наследует от Popup. Этот класс должен перезаписывать родительский метод open.
-// В методе open класса PopupWithImage нужно вставлять в попап картинку с src изображения и подписью к картинке.
