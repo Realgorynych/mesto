@@ -1,5 +1,6 @@
 .card__like-button {
-    margin: 30px 7px 0 auto;
+    /* margin: 30px 7px 0 auto; */
+    margin: auto 7px auto auto;
     transition: 0.5s ease;
     cursor: pointer;
     background-image: url(./../../../images/like-button.svg);
