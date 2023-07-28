@@ -6,7 +6,7 @@ export default class PopupWidthForm extends Popup {
         this._submitCallback = submitCallback;
         this._inputbox = document.querySelector(popupSelector + '__inputbox');
         this._inputList = Array.from(this._inputbox.querySelectorAll('.popup__input'));
-        this._submitBtn = this._inputbox.querySelector(`${popupSelector}__inputbox_save-button`)
+        this._submitBtn = this._inputbox.querySelector(`${popupSelector}-save-button`)
         this._submitBtnText = this._submitBtn.textContent
     }
 
