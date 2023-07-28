@@ -6,6 +6,8 @@ export default class PopupWidthForm extends Popup {
         this._submitCallback = submitCallback;
         this._inputbox = document.querySelector(popupSelector + '__inputbox');
         this._inputList = Array.from(this._inputbox.querySelectorAll('.popup__input'));
+        this._submitBtn = this._inputbox.querySelector(`${popupSelector}_save-button`)
+        this._submitBtnText = this._submitBtn.textContent
     }
 
     _getInputValues() {
@@ -22,12 +24,21 @@ export default class PopupWidthForm extends Popup {
             this._submitCallback(this._getInputValues());
         });
         super.setEventListeners();
-        this.close
+        // this.close()
     }
 
     close() {
-        document.querySelector('#mesto-name').value = ''
-        document.querySelector('#mesto-src').value = ''
+        // document.querySelector('#mesto-name').value = ''
+        // document.querySelector('#mesto-src').value = ''
+        this._inputbox.reset()
         super.close()
+    }
+
+    renderLoading(isLoading, loadingText = 'Сохранение...') {
+        if (!isLoading) {
+            this._submitBtn.textContent = loadingText;
+        } else {
+            this._submitBtn.textContent = this._submitBtnText;
+        }
     }
 }

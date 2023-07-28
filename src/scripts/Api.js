@@ -8,37 +8,27 @@ export default class Api {
         return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
     };
 
-    userInfo() {
-        fetch(`${this._url}users/me`, {
+    _request(url, options) {
+        return fetch(url, options).then(res => this._getCheck(res))
+    }
+
+    getUser() {
+        return this._request(`${this._url}users/me`, {
             method: 'GET',
             headers: this._headers
         })
-            .then(res => res.json())
-            .then((data) => {
-                return (data)
-            })
-
     }
 
-
-    getUser() {
-
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-71/users/me', {
-
-            method: 'GET',
-            headers: this._headers
-        }
-        )
-            .then((res) => this._getCheck(res))
-            .then((data) => {
-                document.querySelector('.profile__name').textContent = data.name;
-                document.querySelector('.profile__stat').textContent = data.about;
-                document.querySelector('.profile__avatar').src = data.avatar;
+    getCards() {
+        return this._request(`${this._url}cards`,
+            {
+                method: 'GET',
+                headers: this._headers
             })
     }
 
     postCard(inputValues) {
-        return fetch(`${this._url}cards`, {
+        return this._request(`${this._url}cards`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -46,12 +36,10 @@ export default class Api {
                 link: inputValues.link
             })
         })
-            .then((res) => this._getCheck(res))
-            .finally(() => this._load(false, '#saveAdd'))
     }
 
     editProfile(inputValues) {
-        return fetch(`${this._url}users/me`, {
+        return this._request(`${this._url}users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
@@ -60,57 +48,37 @@ export default class Api {
             })
         })
             .then((res) => this._getCheck(res))
-            .finally(()=> this._load(false, '#editProfile'))
     }
 
     editAvatar() {
-        return fetch(`${this._url}users/me/avatar`, {
+        return this._request(`${this._url}users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
                 avatar: document.querySelector('.popup__input_type_avatar').value
             }
             )
-        }
-        )
-            .then((res) => this._getCheck(res))
-            .finally(()=> this._load(false, '#saveAvatar'))
+        })
     }
 
-
     unLike(element) {
-        return fetch(`${this._url}cards/${element._id}/likes`, {
+        return this._request(`${this._url}cards/${element._id}/likes`, {
             method: 'DELETE',
             headers: this._headers
-        }
-        )
-            .then((res) => this._getCheck(res))
+        })
     }
 
     like(element) {
-        console.log(`${this._url}cards/${element._id}/likes`)
-        return fetch(`${this._url}cards/${element._id}/likes`, {
+        return this._request(`${this._url}cards/${element._id}/likes`, {
             method: 'PUT',
             headers: this._headers
-        }
-        )
-            .then((res) => this._getCheck(res))
+        })
     }
 
     deleteCard(element) {
-        return fetch(`${this._url}cards/${element._id}`, {
+        return this._request(`${this._url}cards/${element._id}`, {
             method: 'DELETE',
             headers: this._headers
-        }
-        )
-    }
-
-    _load(isLoading, elementSelector) {
-        if (isLoading) {
-            document.querySelector(`${elementSelector}`).textContent = 'Сохранение...'
-        }
-        else {
-            document.querySelector(`${elementSelector}`).textContent = 'Сохранить'
-        }
+        })
     }
 }

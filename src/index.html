@@ -61,7 +61,7 @@
                 <input id="job-input" name="job" placeholder="Работа" class="popup__input popup__input_type_job "
                     required type="input" minlength="2" maxlength="40">
                 <span class="job-input-error popup__span popup__input-error"></span>
-                <button type="submit" id="editProfile" class="popup__save-button popup__save-button_inactive"
+                <button type="submit" id="popup-profileButton" class="popup__save-button popup__save-button_inactive popup-profile_save-button"
                     disabled>Сохранить</button>
             </form>
         </div>
@@ -78,8 +78,8 @@
                 <input name="link" type="url" placeholder="Ссылка на картинку" id="mesto-src"
                     class="popup__input popup__input_type_job popup__input_type_error" required>
                 <span class="mesto-src-error popup__span popup__input-error"></span>
-                <button type="submit" id="saveAdd"
-                    class="popup__save-button popup__save-button_inactive">Сохранить</button>
+                <button type="submit" id="popup-addButton"
+                    class="popup__save-button popup__save-button_inactive popup-add_save-button">Сохранить</button>
             </form>
         </div>
     </div>
@@ -95,7 +95,7 @@
             <button type="button" class="popup__cross-button popup-delete__cross-button"></button>
             <h3 class="popup__title">Вы уверены?</h3>
             <form id="deleteInput" name="input" class="popup__inputbox popup-delete__inputbox" novalidate>
-                <button id="save-delete" type="submit" class="popup__save-button">Да</button>
+                <button id="popup-deleteButton" type="submit" class="popup__save-button popup-delete_save-button">Да</button>
             </form>
         </div>
     </div>
@@ -108,7 +108,7 @@
                     class="popup__input popup__input_type_avatar popup__input_type_error" required>
                 <span class="avatar-src popup__span popup__input-error"></span>
                 <button type="submit" id="saveAvatar"
-                    class="popup__save-button popup__save-button_inactive">Сохранить</button>
+                    class="popup__save-button popup-avatar_save-button">Сохранить</button>
             </form>
         </div>
     </div>

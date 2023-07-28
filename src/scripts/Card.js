@@ -46,11 +46,11 @@ class Card {
         // this._buttonLike.classList.toggle("card__like-button_active");
         // this._handleLike()
         if(this._buttonLike.classList.contains('card__like-button_active')){
-            this._buttonLike.classList.remove("card__like-button_active")
+            // this._buttonLike.classList.remove("card__like-button_active")
             this._removeLike()
         }
         else{
-            this._buttonLike.classList.add("card__like-button_active")
+            // this._buttonLike.classList.add("card__like-button_active")
             this._handleLike()
         }
     }
@@ -83,7 +83,7 @@ class Card {
         this._element.querySelector(".card__title").textContent = this._name;
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
-        // this._likeSum.textContent = this._like.length
+        this._likeSum.textContent = this._like.length
 
 
         return this._element;
