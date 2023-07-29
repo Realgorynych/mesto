@@ -1,3 +1,6 @@
 .card__trash-button_disable{
     opacity: 0;
 }
+.card__trash-button_disable:hover{
+    opacity: 0;
+}

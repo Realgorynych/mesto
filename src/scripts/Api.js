@@ -36,7 +36,6 @@ export default class Api {
                 link: inputValues.link
             })
         })
-        .then((res) => this._getCheck(res))
     }
 
     editProfile(userData) {
@@ -48,7 +47,6 @@ export default class Api {
                 about: userData.about
               })
         })
-            .then((res) => this._getCheck(res))
     }
 
     editAvatar() {

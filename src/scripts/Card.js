@@ -1,5 +1,3 @@
-import { data } from "autoprefixer";
-
 class Card {
     constructor(data, cardSelector, { handleOpenPopup }, { handleDelete }, { handleLike }, { removeLike }, { likeCheck }, { userInfo }) {
         this._name = data.name;
@@ -33,7 +31,7 @@ class Card {
             );
 
 
-        this._element
+        this.element
             .querySelector(".card__trash-button")
             .addEventListener("click", () => {
                 this._deletePopup()
@@ -65,8 +63,8 @@ class Card {
     }
 
     _deleteCard() {
-        this._element.remove()
-        this._element = null;
+        this.element.remove()
+        this.element = null;
     }
 
     _openPopup() {
@@ -87,21 +85,21 @@ class Card {
     _disableTrashButton() {
 
         if (this._userInfo !== this._owner) {
-            this._trashButton = this._element.querySelector('.card__trash-button')
+            this._trashButton = this.element.querySelector('.card__trash-button')
             this._trashButton.setAttribute('disabled', 'disabled');
             this._trashButton.classList.add('card__trash-button_disable')
         }
     }
 
     generateCard() {
-        this._element = this._getTemplate();
-        this._cardImage = this._element.querySelector(".card__photo")
-        this._buttonLike = this._element.querySelector('.card__like-button')
-        this._likeSum = this._element.querySelector('.like-calc')
+        this.element = this._getTemplate();
+        this._cardImage = this.element.querySelector(".card__photo")
+        this._buttonLike = this.element.querySelector('.card__like-button')
+        this._likeSum = this.element.querySelector('.like-calc')
         this._setEventListeners();
 
 
-        this._element.querySelector(".card__title").textContent = this._name;
+        this.element.querySelector(".card__title").textContent = this._name;
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
 
@@ -110,7 +108,7 @@ class Card {
         this._isLiked()
         this._disableTrashButton()
 
-        return this._element;
+        return this.element;
     }
 
 
