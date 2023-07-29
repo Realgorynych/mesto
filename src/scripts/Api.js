@@ -36,16 +36,17 @@ export default class Api {
                 link: inputValues.link
             })
         })
+        .then((res) => this._getCheck(res))
     }
 
-    editProfile(inputValues) {
+    editProfile(userData) {
         return this._request(`${this._url}users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                name: inputValues.name,
-                about: inputValues.job
-            })
+                name: userData.name,
+                about: userData.about
+              })
         })
             .then((res) => this._getCheck(res))
     }

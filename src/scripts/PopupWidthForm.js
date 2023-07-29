@@ -15,6 +15,7 @@ export default class PopupWidthForm extends Popup {
         this._inputList.forEach((input) => {
             inputValues[input.getAttribute('name')] = input.value;
         });
+        
         return inputValues;
     }
 
@@ -35,10 +36,11 @@ export default class PopupWidthForm extends Popup {
     }
 
     renderLoading(isLoading, loadingText = 'Сохранение...') {
-        if (!isLoading) {
-            this._submitBtn.textContent = loadingText;
-        } else {
+        if (isLoading) {
             this._submitBtn.textContent = this._submitBtnText;
+        } else {
+
+            this._submitBtn.textContent = loadingText;
         }
     }
 }
