@@ -26,7 +26,6 @@ Promise.all([api.getUser(), api.getCards()])
             about: userData.about,
 
         })
-        console.log(userData)
         userInfo.setUserAvatar(userData.avatar)
         userInfo.setID(userData._id)
         cards.forEach((item) => cardsList.renderItem(item));
@@ -49,7 +48,7 @@ const submitDelete = function (element, card) {
         .finally(() => popupDelete.setButtonText('Да'))
 }
 
-const popupDelete = new PopupWidthForm('.popup-delete', userIndificator,
+const popupDelete = new PopupWidthForm('.popup-delete',
     {
         submitCallback: (element, card) => {
             submitDelete(element, card)
@@ -68,7 +67,6 @@ const cardsList = new Section(
             const card = new Card(element, "#card-template", {
                 handleOpenPopup: (name, link) => {
                     popupWithImage.open(name, link)
-                    console.log(element.likes)
                 }
 
 
@@ -86,6 +84,7 @@ const cardsList = new Section(
                 },
                 {
                     handleLike: function () {
+                        console.log(element)
                         api.like(element)
                             .then(() => {
                                 this.putLike()
@@ -100,14 +99,12 @@ const cardsList = new Section(
                                 this.delLike()
                             })
                             .catch((err) => console.log('ошибка:' + err))
-
                     }
                 },
                 {
                     likeCheck: function () {
                         const likes = element.likes
                         const userinfo = userInfo.getUserData()
-                        console.log(userinfo)
                         return likes.map((users) => users._id).includes(userinfo._id)
                     }
                 },
@@ -122,15 +119,27 @@ const cardsList = new Section(
 )
 cardsList.renderItems()
 
-const popupAddForm = new PopupWidthForm('.popup-add', userInfo.getUserData(), {
+const popupAddForm = new PopupWidthForm('.popup-add', {
     submitCallback:
         function (inputValues) {
-            console.log(inputValues)
+            console.log(inputValues.link)
+            const profile = userInfo.getUserData()
+            const cardData = {
+                likes: [],
+                _id: '12345678',
+                owner: {
+                    // _id: this._userInfoId
+                    _id: profile._id
+                },
+                name: inputValues.name,
+                link: inputValues.link
+            }
             popupAddForm.setButtonText('Сохранение...')
-            api.postCard(inputValues)
+            api.postCard(cardData)
                 .then(() => {
-                    cardsList.renderItem(inputValues);
+                    cardsList.renderItem(cardData);
                     popupAddForm.close()
+                    location.reload()
                 })
                 .catch((err) => console.log('ошибка:' + err))
                 // .finally(() => popupAddForm.renderLoading(false))
@@ -161,7 +170,7 @@ editButton.addEventListener('click', function () {
     popupProfileForm.open();
 });
 
-const popupProfileForm = new PopupWidthForm('.popup-profile', userIndificator, {
+const popupProfileForm = new PopupWidthForm('.popup-profile', {
     submitCallback:
         function (inputValues) {
             popupProfileForm.setButtonText('Сохранение...')
@@ -187,7 +196,7 @@ popupProfileForm.setEventListeners()
 const popupWithImage = new PopupWithImage('.popup-photo');
 popupWithImage.setEventListeners()
 
-const popupAvatarForm = new PopupWidthForm('.popup-avatar', userInfo.getUserData(), {
+const popupAvatarForm = new PopupWidthForm('.popup-avatar', {
     submitCallback:
         function (inputValues) {
             popupAvatarForm.setButtonText('Сохранение...')

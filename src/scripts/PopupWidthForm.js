@@ -1,19 +1,18 @@
 import Popup from "./Popup.js";
 
 export default class PopupWidthForm extends Popup {
-    constructor(popupSelector, userInfo, { submitCallback }) {
+    constructor(popupSelector,{ submitCallback }) {
         super(popupSelector);
         this._submitCallback = submitCallback;
         this._inputbox = document.querySelector(popupSelector + '__inputbox');
         this._inputList = Array.from(this._inputbox.querySelectorAll('.popup__input'));
         this._submitBtn = this._inputbox.querySelector(`${popupSelector}-save-button`)
         this._submitBtnText = this._submitBtn.textContent 
-        this._userInfoId = userInfo._id
 
     }
 
     _getInputValues() {
-        const inputValues = {likes: [], _id: '12345678', owner:{_id: this._userInfoId}};
+        const inputValues = {};
         this._inputList.forEach((input) => {
             inputValues[input.getAttribute('name')] = input.value;
         });
