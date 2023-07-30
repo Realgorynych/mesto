@@ -122,27 +122,22 @@ cardsList.renderItems()
 const popupAddForm = new PopupWidthForm('.popup-add', {
     submitCallback:
         function (inputValues) {
-            console.log(inputValues.link)
-            const profile = userInfo.getUserData()
-            const cardData = {
-                likes: [],
-                _id: '12345678',
-                owner: {
-                    // _id: this._userInfoId
-                    _id: profile._id
-                },
-                name: inputValues.name,
-                link: inputValues.link
-            }
             popupAddForm.setButtonText('Сохранение...')
-            api.postCard(cardData)
-                .then(() => {
-                    cardsList.renderItem(cardData);
+            api.postCard(inputValues)
+                .then((res) => {
+                    cardsList.renderItem(
+                        {
+                            likes: res.likes,
+                            _id: res._id,
+                            owner: res.owner,
+                            name: inputValues.name,
+                            link: inputValues.link
+                        }
+                    );
                     popupAddForm.close()
-                    location.reload()
+                    console.log(res)
                 })
                 .catch((err) => console.log('ошибка:' + err))
-                // .finally(() => popupAddForm.renderLoading(false))
                 .finally(() => popupAddForm.setButtonText('Сохранить'))
 
 
